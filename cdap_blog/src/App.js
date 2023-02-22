@@ -59,8 +59,24 @@ function App() {
        <p>23.02.22 시작</p>
        <p>{time}</p>
      </div>
+
+     
+     <Modal></Modal>
+     {/* </Modal> */}
+     
+     
     </div>
   );
+}
+
+function Modal(){
+  return(
+    <div className='modal'>
+      <h4>제목</h4>
+      <p>날짜</p>
+      <p>상세내용</p>
+    </div>
+  )
 }
 
 export default App;
