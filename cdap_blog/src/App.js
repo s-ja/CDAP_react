@@ -11,7 +11,9 @@ function App() {
   // let [logo, setLogo] = useState('ReactBlog')
   let [title, setTitle] = useState(['JSX','typeScript','react'])
 
-  let [likeNumber, setLikeNumber] = useState(0);
+  let [likeNumber, setLikeNumber] = useState([0,0,0]);
+
+  let[modal, setmodal] = useState(false);
 
 
   function plusNumber(){
@@ -25,6 +27,7 @@ function App() {
         ReactBlog
       </h4>
      </div>
+
      <button onClick={() => {
       let titleArr = [...title]
       titleArr.sort()
@@ -33,11 +36,13 @@ function App() {
       }}>
       🔽
      </button>
-     <div class="list">
+
+     {/* <div class="list">
        <h4>{post} <span onClick={ () => {setLikeNumber(++likeNumber)}}>👍</span> {likeNumber}</h4>
        <p>23.02.22 시작</p>
        <p>{time}</p>
      </div>
+
      <div class="list">
        <h4>{title[0]}</h4>
        <button onClick={()=>{
@@ -49,21 +54,47 @@ function App() {
        <p>23.02.22 시작</p>
        <p>{time}</p>
      </div>
+
      <div class="list">
        <h4>{title[1]}</h4>
        <p>23.02.22 시작</p>
        <p>{time}</p>
      </div>
+
      <div class="list">
-       <h4>{title[2]}</h4>
+       <h4 onClick={()=>{setmodal(!modal)}} >{title[2]}</h4>
        <p>23.02.22 시작</p>
        <p>{time}</p>
-     </div>
+     </div> */}
+
+     {
+      title.map(function(a, i){
+        return(
+          <div class="list" key={i}>
+            <h4 onClick={()=>{setmodal(!modal)}} >
+              {i}{a}
+              <span onClick={ () => {
+
+                let copy = [...likeNumber]
+                copy[i] = ++copy[i];
+
+                setLikeNumber(copy)
+              }}>👍</span>
+              {likeNumber[i]}
+            </h4>
+            <p>23.02.22 시작</p>
+            <p>{time}</p>
+          </div>
+        )
+      })
+     }
 
      
      {/* <Modal></Modal> */}
-     <Modal/>
-     
+     {/* <Modal/> */}
+     {
+      modal == true ? <Modal/> : null
+     }
      
     </div>
   );
