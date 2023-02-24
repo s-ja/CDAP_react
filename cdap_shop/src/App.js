@@ -1,23 +1,47 @@
-import logo from './logo.svg';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+import { useState } from 'react';
+import { Button, Container, Nav, Navbar, Row, Col } from 'react-bootstrap';
 import './App.css';
+import bg from './img/bg.png';
+
+import data from './data.js'
+
 
 function App() {
+
+  let [shoes, setShoes] = useState(data);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar bg="dark" variant="dark">
+        <Container>
+          <Navbar.Brand href="#home">CDAP <br/> React_Part 2</Navbar.Brand>
+          <Nav className="me-auto">
+            <Nav.Link href="#home">Home</Nav.Link>
+            <Nav.Link href="#features">Features</Nav.Link>
+          </Nav>
+        </Container>
+      </Navbar>
+      {/* <Button variant="primary">Primary</Button> */}
+      
+      <div className='main-bg' style={{backgroundImage:`url(${bg})`}}></div>
+      <div>
+        <Container>
+        <Row>
+          <Col sm>
+            <img src={process.env.PUBLIC_URL + '/shoes1.jpg'} alt='shoes1' width='80%'/>
+            <h4>{shoes[0].title}</h4>
+            <p>{shoes[0].price}</p>
+          </Col>
+          <Col sm>
+            <img src='https://codingapple1.github.io/shop/shoes2.jpg' alt='shoes2' width='80%'/>
+            <h4>{shoes[1].title}</h4>
+            <p>{shoes[1].price}</p>
+          </Col>
+        </Row>
+      </Container>
+      </div>
+      
     </div>
   );
 }
