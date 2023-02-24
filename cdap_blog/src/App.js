@@ -1,4 +1,5 @@
 /* eslint-disable */
+import React from 'react';
 
 import logo from './logo.svg';
 import './App.css';
@@ -123,9 +124,13 @@ function App() {
      {/* <Modal></Modal> */}
      {/* <Modal/> */}
      {
-      modal == true ? <Modal title={title} color={'antiquewhite'} setTitle={setTitle} titleNumber={titleNumber}/> : null
+      modal == true
+      ? <Modal title={title} color={'antiquewhite'} setTitle={setTitle} titleNumber={titleNumber}/>
+      : null
      }
-     
+
+     <Modal2></Modal2>
+
     </div>
   );
 }
@@ -144,5 +149,29 @@ function Modal(props){
     </div>
   )
 }
+
+
+class Modal2 extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      name : 'asj',
+      age : 29
+    }
+  }
+  render(){
+    return(
+      <div>
+        Hello, {this.state.name}<br/>
+        his age is {this.state.age}
+        <button onClick={()=>{
+          this.setState({age : 30})
+        }}>2024</button>
+        {/* <div>test{this.props}</div> */}
+      </div>
+    )
+  }
+}
+
 
 export default App;
