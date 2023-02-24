@@ -32,11 +32,13 @@ function App() {
             <img src={process.env.PUBLIC_URL + '/shoes1.jpg'} alt='shoes1' width='80%'/>
             <h4>{shoes[0].title}</h4>
             <p>{shoes[0].price}</p>
+            <p>{shoes[0].content}</p>
           </Col>
           <Col sm>
             <img src='https://codingapple1.github.io/shop/shoes2.jpg' alt='shoes2' width='80%'/>
             <h4>{shoes[1].title}</h4>
             <p>{shoes[1].price}</p>
+            <p>{shoes[1].content}</p>
           </Col>
         </Row>
       </Container>
