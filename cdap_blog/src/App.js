@@ -15,6 +15,10 @@ function App() {
 
   let[modal, setmodal] = useState(false);
 
+  let [titleNumber, setTitleNumber] = useState(0);
+
+  let [content,setContent] = useState('');
+
 
   function plusNumber(){
     console.log('number plused');
@@ -70,10 +74,12 @@ function App() {
      {
       title.map(function(a, i){
         return(
-          <div class="list" key={i}>
-            <h4 onClick={()=>{setmodal(!modal)}} >
+          <div className="list" key={i}>
+            <h4 onClick={()=>{setmodal(true); setTitleNumber(i)}} >
               {i}{a}
-              <span onClick={ () => {
+              <span onClick={ (e) => {
+
+                e.stopPropagation();
 
                 let copy = [...likeNumber]
                 copy[i] = ++copy[i];
@@ -84,28 +90,57 @@ function App() {
             </h4>
             <p>23.02.22 시작</p>
             <p>{time}</p>
+            <button onClick={()=>{
+              // title.splice(i)
+              let copy = [...title];
+              copy.splice(i,1);
+              setTitle(copy)
+              }} >글 삭제</button>
           </div>
         )
       })
      }
 
-     
+     {/* <button onClick={()=>{ setTitleNumber(0)}}>title0</button>
+     <button onClick={()=>{ setTitleNumber(1)}}>title1</button>
+     <button onClick={()=>{ setTitleNumber(2)}}>title2</button> */}
+
+     <input onChange={(e)=>{
+      setContent(e.target.value);
+      // return(content);
+      }} />
+      
+     {/* <button onClick={()=>{title.unshift(content)}} >글 추가</button> */}
+
+     <button onClick={()=>{
+      let copy = [...title];
+      copy.unshift(content);
+      setTitle(copy)
+     }} >
+      글 추가
+      </button>
+
      {/* <Modal></Modal> */}
      {/* <Modal/> */}
      {
-      modal == true ? <Modal/> : null
+      modal == true ? <Modal title={title} color={'antiquewhite'} setTitle={setTitle} titleNumber={titleNumber}/> : null
      }
      
     </div>
   );
 }
 
-function Modal(){
+function Modal(props){
   return(
-    <div className='modal'>
-      <h4>제목</h4>
+    <div className='modal' style={{background : props.color}}>
+      <h4>{props.title[props.titleNumber]}</h4>
       <p>날짜</p>
       <p>상세내용</p>
+      <button onClick={()=>{
+        let titleCopy = [...props.title]
+        titleCopy[0] = 'JSX in react'
+        props.setTitle(titleCopy)
+        }}>🔄️</button>
     </div>
   )
 }
