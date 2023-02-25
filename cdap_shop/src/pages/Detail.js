@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react';
-import { Button, Container, Row, Col } from 'react-bootstrap';
+import { useContext, useEffect, useState } from 'react';
+import { Button, Container, Row, Col, Nav } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components'
+
+import {Context1} from './../App'
 
 let BtnReset = styled.button`
   background: inherit ;
@@ -21,6 +23,8 @@ let Btn = styled.button`
 
 function Detail(props){
 
+  let {stock} = useContext(Context1)
+  
     // let [shoes] = useState();
 
     let {id} = useParams();
@@ -49,6 +53,16 @@ function Detail(props){
       }
     },[num])
 
+    let [tab, setTab] = useState(0);
+
+    let [fade2, setFade2] = useState('')
+    useEffect(()=>{
+      setFade2('end')
+      return ()=>{
+        setFade2('')
+      }
+    })
+
     // let [disapear, setDisapear] = useState((x = 'block')=>{
     //     return(
     //       <div className='alert alert-warning' style={{display : {x}}}>
@@ -63,7 +77,7 @@ function Detail(props){
     // })
 
     return(
-      <Container>
+      <Container className={`start ${fade2}`}>
         {/* <Btn bg='black'>test</Btn> */}
         {/* {disapear} */}
 
@@ -77,7 +91,7 @@ function Detail(props){
           </Col>
           <Col md={6}>
 
-            <input onChange={(e)=>{ setNum(e.target.value); }}/>
+            {/* <input onChange={(e)=>{ setNum(e.target.value); }}/> */}
             
             <h4 className="pt-5">{item.title}</h4>
             <p>{item.content}</p>
@@ -86,7 +100,56 @@ function Detail(props){
             <Button variant="danger">주문하기</Button>
           </Col>
         </Row>
-      </Container> 
+
+
+        
+        <Nav variant="tabs"  defaultActiveKey="link0">
+          <Nav.Item>
+            <Nav.Link onClick={()=>{setTab(0)}} eventKey="link0">버튼0</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link onClick={()=>{setTab(1)}} eventKey="link1">버튼1</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link onClick={()=>{setTab(2)}} eventKey="link2">버튼2</Nav.Link>
+          </Nav.Item>
+        </Nav>
+        {/* { tab == 0 ? <div>내용0</div> : null } { tab == 1 ? <div>내용1</div> : null } { tab == 2 ? <div>내용2</div> : null } */}
+        <TabContent tab={tab} shoes={props.shoes} />
+        
+      </Container>
+    )
+  }
+
+  // function TabContent(props){
+  //   if(props.tab==0){
+  //     return <div>내용0</div>
+  //   }else if (props.tab==1){
+  //     return <div>내용1</div>
+  //   }else if (props.tab==2){
+  //     return <div>내용2</div>
+  //   }
+  // }
+  function TabContent({tab}){
+
+    let {stock} = useContext(Context1)
+
+    let [fade, setFade] = useState('')
+    
+    useEffect(()=>{
+      let timer = setTimeout(()=>{
+        setFade('end')
+      },100)
+      return ()=>{
+        clearTimeout(timer)
+        setFade('')
+      }
+    },[tab])
+
+    return(
+      <div className={`start ${fade}`}>
+        {[<div>재고{stock[0]}</div>, <div>내용1</div>, <div>내용2</div>][tab]}
+      </div>
     )
   }
 

@@ -1,5 +1,5 @@
 // import 'bootstrap/dist/css/bootstrap.min.css';
-import React, { useState } from 'react';
+import React, { createContext, useState } from 'react';
 import { Button, Container, Nav, Navbar, Row, Col } from 'react-bootstrap';
 import './App.css';
 import bg from './img/bg.png';
@@ -12,10 +12,14 @@ import Detail from "./pages/Detail";
 
 import axios from 'axios'
 
+export let Context1 = createContext()
+
 function App() {
 
   let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
+
+  let [stock, setStock] = useState([10,11,100])
 
   return (
     <div className="App">
@@ -64,12 +68,23 @@ function App() {
               }).catch(()=>{
                 console.log('Error : 404');
               })
+
+              // Promise.all([axios.get(''), axios.get('')])
+              // .then(()={})
+              
+              // axios.post('',{writen : 'byASJ'})
+              
             }}>버튼</button>
           </div>
         
         } />
         
-        <Route path='/detail/:id' element={<Detail shoes={shoes} />} />
+        <Route path='/detail/:id' element={
+          <Context1.Provider value={{ stock}}>
+            <Detail shoes={shoes} />
+          </Context1.Provider>
+
+        } />
 
         <Route path='/about' element={ <div> <About/> </div> } >
 
