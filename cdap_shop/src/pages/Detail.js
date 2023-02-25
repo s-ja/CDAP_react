@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Container, Row, Col } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components'
@@ -24,14 +24,32 @@ function Detail(props){
     // let [shoes] = useState();
 
     let {id} = useParams();
+
     // let [item, setItem] = useState(props.shoes[id])
     let item = props.shoes.find(function(x){
       return x.id == id
     });
+
+    let [disapear, setDisapear] = useState((x = 'block')=>{
+        return(
+          <div className='alert alert-warning' style={{display : {x}}}>
+            2초 안에 사라집니다.
+          </div>
+        )
+      }
+    )
+
+    useEffect(()=>{
+      setTimeout(()=>{setDisapear('none')},2000)
+    })
   
     return(
       <Container>
         {/* <Btn bg='black'>test</Btn> */}
+        {/* {disapear} */}
+
+        
+
         <Row>
           <Col md={6}>
             <img src={process.env.PUBLIC_URL + `https://codingapple1.github.io/shop/shoes${item.id+1}.jpg`} width="100%" alt={`shoes${props.id+1}`}/>
