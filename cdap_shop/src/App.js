@@ -12,6 +12,8 @@ import Detail from "./pages/Detail";
 
 import axios from 'axios'
 
+import Cart from './pages/Cart'
+
 export let Context1 = createContext()
 
 function App() {
@@ -102,6 +104,8 @@ function App() {
           <Route path='event-1' element={<p>오늘의 이벤트1</p>}></Route>
           <Route path='event-2' element={<p>오늘의 이벤트2</p>}></Route>
         </Route>
+
+        <Route path='/cart' element={<Cart></Cart>}></Route>
 
         <Route path='*' element={<div>ERROR : 404</div>}></Route>
 
