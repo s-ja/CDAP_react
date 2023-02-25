@@ -6,54 +6,77 @@ import bg from './img/bg.png';
 
 import data from './data.js'
 
+import {Routes, Route, Link, useNavigate, Outlet} from 'react-router-dom'
+
+import Detail from "./pages/Detail";
 
 function App() {
 
   let [shoes, setShoes] = useState(data);
+  let navigate = useNavigate();
 
   return (
     <div className="App">
+      {/* <Button variant="primary">Primary</Button> */}
+
       <Navbar bg="dark" variant="dark">
         <Container>
           <Navbar.Brand href="#home">CDAP <br/> React_Part 2</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Features</Nav.Link>
+            {/* <Nav.Link href="#home">Home</Nav.Link>
+            <Nav.Link href="#features">Features</Nav.Link> */}
+            {/* <Link to='/'>Home</Link> */}
+            {/* <Link to='detail' >Detail</Link> */}
+            <Nav.Link onClick={()=>{navigate('/')}}>Home</Nav.Link>
+            <Nav.Link onClick={()=>{navigate('/detail')}}>Detail</Nav.Link>
+          </Nav>
+          <Nav className="me-auto">
+            <Nav.Link onClick={()=>{navigate(-1)}}>Backward</Nav.Link>
+            <Nav.Link onClick={()=>{navigate(+1)}}>Forward</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
-      {/* <Button variant="primary">Primary</Button> */}
+
       
-      <div className='main-bg' style={{backgroundImage:`url(${bg})`}}></div>
-      <div>
-        <Container>
-        <Row>
-          
-          {/* <Col sm>
-            <img src={process.env.PUBLIC_URL + '/shoes1.jpg'} alt='shoes1' width='80%'/>
-            <h4>{shoes[0].title}</h4>
-            <p>{shoes[0].price}</p>
-            <p>{shoes[0].content}</p>
-          </Col>
-          <Col sm>
-            <img src='https://codingapple1.github.io/shop/shoes2.jpg' alt='shoes2' width='80%'/>
-            <h4>{shoes[1].title}</h4>
-            <p>{shoes[1].price}</p>
-            <p>{shoes[1].content}</p>
-          </Col> */}
+      <Routes>
+        <Route path='/' element={
 
-          {/* <Product title={shoes[0].title} price={shoes[0].price} content={shoes[0].content}/> */}
-          
-          {/* <ProductWithClass title={shoes[1].title} price={shoes[1].price} content={shoes[1].content}/> */}
+          <div>
+            <div className='main-bg' style={{backgroundImage:`url(${bg})`}}></div>
+            <Container>
+              <Row>
+                {shoes.map(function(content,index){
+                  return(
+                    <Product id={shoes[index].id} title={shoes[index].title} price={shoes[index].price} content={shoes[index].content}/>
+                  )
+                })}
+              </Row>
+            </Container>
+          </div>
+        
+        } />
+        
+        <Route path='/detail' element={
+          <div>
+            <Detail/>
+          </div>
+        } />
 
-          {shoes.map(function(content,index){
-            return(
-              <Product id={shoes[index].id} title={shoes[index].title} price={shoes[index].price} content={shoes[index].content}/>
-            )
-          })}
-        </Row>
-      </Container>
-      </div>
+        <Route path='/about' element={
+          <div>
+            <About/>
+          </div>
+        } />
+        <Route path='/about/member' element={
+          <div>
+            <Member/>
+          </div>
+        } />
+
+        <Route path='*' element={<div>ERROR : 404</div>}>
+        </Route>
+
+      </Routes>
       
     </div>
   );
@@ -70,21 +93,13 @@ function Product(props){
   )
 }
 
-class ProductWithClass extends React.Component{
-  constructor(props){
-    super(props);
-    this.state = {
-      title : `${props}.title`
-    }
-  }
-  render(){
-    return(
-      <Col sm>
-      <img src={process.env.PUBLIC_URL + '/shoes1.jpg'} alt='shoes1' width='80%'/>
-      <h4>{this.state.title}</h4>
-    </Col>
-    )
-  }
+function About(){
+  return(
+    <div>
+      <h4>About Us</h4>
+    </div>
+  )
 }
+
 
 export default App;
