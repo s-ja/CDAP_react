@@ -29,6 +29,7 @@ function App() {
             {/* <Link to='detail' >Detail</Link> */}
             <Nav.Link onClick={()=>{navigate('/')}}>Home</Nav.Link>
             <Nav.Link onClick={()=>{navigate('/detail')}}>Detail</Nav.Link>
+            <Nav.Link onClick={()=>{navigate('/about')}}>About</Nav.Link>
           </Nav>
           <Nav className="me-auto">
             <Nav.Link onClick={()=>{navigate(-1)}}>Backward</Nav.Link>
@@ -62,19 +63,24 @@ function App() {
           </div>
         } />
 
-        <Route path='/about' element={
-          <div>
-            <About/>
-          </div>
-        } />
-        <Route path='/about/member' element={
-          <div>
-            <Member/>
-          </div>
-        } />
+        <Route path='/about' element={ <div> <About/> </div> } >
 
-        <Route path='*' element={<div>ERROR : 404</div>}>
+          <Route path='member' element={<div>Member</div>}>
+            <Route path='ceo' element={<div>CEO</div>}>
+          </Route>
+
+          </Route>
+            <Route path='location' element={<div>location</div>}>
+          </Route>
+          
         </Route>
+
+        <Route path='event' element={<div> <Event/> </div>}>
+          <Route path='event-1' element={<p>오늘의 이벤트1</p>}></Route>
+          <Route path='event-2' element={<p>오늘의 이벤트2</p>}></Route>
+        </Route>
+
+        <Route path='*' element={<div>ERROR : 404</div>}></Route>
 
       </Routes>
       
@@ -97,6 +103,19 @@ function About(){
   return(
     <div>
       <h4>About Us</h4>
+      <Outlet>
+        <Outlet></Outlet>
+      </Outlet>
+    </div>
+  )
+}
+
+function Event(){
+  return(
+    <div>
+      <h4>EVENT</h4>
+      <Outlet>
+      </Outlet>
     </div>
   )
 }
