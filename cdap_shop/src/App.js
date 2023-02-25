@@ -57,11 +57,7 @@ function App() {
         
         } />
         
-        <Route path='/detail' element={
-          <div>
-            <Detail/>
-          </div>
-        } />
+        <Route path='/detail/:id' element={<Detail shoes={shoes} />} />
 
         <Route path='/about' element={ <div> <About/> </div> } >
 
@@ -90,8 +86,8 @@ function App() {
 
 function Product(props){
   return(
-    <Col sm>
-      <img src={process.env.PUBLIC_URL + `/shoes${props.id+1}.jpg`} alt='shoes1' width='80%'/>
+    <Col sm key={props.id}>
+      <img src={process.env.PUBLIC_URL + `/shoes${props.id+1}.jpg`} alt={`shoes${props.id+1}`} width='80%'/>
       <h4>{props.title}</h4>
       <p>{props.price}</p>
       <p>{props.content}</p>
