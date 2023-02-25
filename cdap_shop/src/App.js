@@ -1,5 +1,5 @@
 // import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Container, Nav, Navbar, Row, Col } from 'react-bootstrap';
 import './App.css';
 import bg from './img/bg.png';
@@ -28,7 +28,8 @@ function App() {
       <div>
         <Container>
         <Row>
-          <Col sm>
+          
+          {/* <Col sm>
             <img src={process.env.PUBLIC_URL + '/shoes1.jpg'} alt='shoes1' width='80%'/>
             <h4>{shoes[0].title}</h4>
             <p>{shoes[0].price}</p>
@@ -39,13 +40,51 @@ function App() {
             <h4>{shoes[1].title}</h4>
             <p>{shoes[1].price}</p>
             <p>{shoes[1].content}</p>
-          </Col>
+          </Col> */}
+
+          {/* <Product title={shoes[0].title} price={shoes[0].price} content={shoes[0].content}/> */}
+          
+          {/* <ProductWithClass title={shoes[1].title} price={shoes[1].price} content={shoes[1].content}/> */}
+
+          {shoes.map(function(content,index){
+            return(
+              <Product id={shoes[index].id} title={shoes[index].title} price={shoes[index].price} content={shoes[index].content}/>
+            )
+          })}
         </Row>
       </Container>
       </div>
       
     </div>
   );
+}
+
+function Product(props){
+  return(
+    <Col sm>
+      <img src={process.env.PUBLIC_URL + `/shoes${props.id+1}.jpg`} alt='shoes1' width='80%'/>
+      <h4>{props.title}</h4>
+      <p>{props.price}</p>
+      <p>{props.content}</p>
+    </Col>
+  )
+}
+
+class ProductWithClass extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      title : `${props}.title`
+    }
+  }
+  render(){
+    return(
+      <Col sm>
+      <img src={process.env.PUBLIC_URL + '/shoes1.jpg'} alt='shoes1' width='80%'/>
+      <h4>{this.state.title}</h4>
+    </Col>
+    )
+  }
 }
 
 export default App;
