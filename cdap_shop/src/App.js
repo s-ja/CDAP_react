@@ -10,6 +10,8 @@ import {Routes, Route, Link, useNavigate, Outlet} from 'react-router-dom'
 
 import Detail from "./pages/Detail";
 
+import axios from 'axios'
+
 function App() {
 
   let [shoes, setShoes] = useState(data);
@@ -53,6 +55,16 @@ function App() {
                 })}
               </Row>
             </Container>
+            <button onClick={()=>{
+              axios.get('https://codingapple1.github.io/shop/data2.json')
+              .then((result)=>{
+                console.log(result.data)
+                let copy = [...shoes, ...result.data];
+                setShoes(copy);
+              }).catch(()=>{
+                console.log('Error : 404');
+              })
+            }}>버튼</button>
           </div>
         
         } />
@@ -86,8 +98,9 @@ function App() {
 
 function Product(props){
   return(
-    <Col sm key={props.id}>
-      <img src={process.env.PUBLIC_URL + `/shoes${props.id+1}.jpg`} alt={`shoes${props.id+1}`} width='80%'/>
+    <Col sm key={props}>
+      {/* <img src={process.env.PUBLIC_URL + `/shoes${props.id+1}.jpg`} alt={`shoes${1+props.id}`} width='80%'/> */}
+      <img src={process.env.PUBLIC_URL + `https://codingapple1.github.io/shop/shoes${props.id+1}.jpg`} alt={`shoes${1+props.id}`} width='80%'/>
       <h4>{props.title}</h4>
       <p>{props.price}</p>
       <p>{props.content}</p>

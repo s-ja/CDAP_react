@@ -30,31 +30,55 @@ function Detail(props){
       return x.id == id
     });
 
-    let [disapear, setDisapear] = useState((x = 'block')=>{
-        return(
-          <div className='alert alert-warning' style={{display : {x}}}>
-            2초 안에 사라집니다.
-          </div>
-        )
-      }
-    )
+    let [alert, setAlert] = useState(true)
 
     useEffect(()=>{
-      setTimeout(()=>{setDisapear('none')},2000)
-    })
-  
+      let timer = setTimeout(()=>{setAlert(false)},2000)
+      // console.log('test2');
+      return ()=>{
+        // console.log('test1');
+        clearTimeout(timer);
+      }
+    },[]);
+
+    let [num, setNum] = useState('');
+    
+    useEffect(()=>{
+      if (isNaN(num) == true){
+        console.log('숫자만 입력 가능합니다.');
+      }
+    },[num])
+
+    // let [disapear, setDisapear] = useState((x = 'block')=>{
+    //     return(
+    //       <div className='alert alert-warning' style={{display : {x}}}>
+    //         2초 안에 사라집니다.
+    //       </div>
+    //     )
+    //   }
+    // )
+
+    // useEffect(()=>{
+    //   setTimeout(()=>{setDisapear('none')},2000)
+    // })
+
     return(
       <Container>
         {/* <Btn bg='black'>test</Btn> */}
         {/* {disapear} */}
 
-        
+        {
+          alert == true ? <div className='alert alert-warning'>2초 안에 사라집니다.</div> : null
+        }
 
         <Row>
           <Col md={6}>
             <img src={process.env.PUBLIC_URL + `https://codingapple1.github.io/shop/shoes${item.id+1}.jpg`} width="100%" alt={`shoes${props.id+1}`}/>
           </Col>
           <Col md={6}>
+
+            <input onChange={(e)=>{ setNum(e.target.value); }}/>
+            
             <h4 className="pt-5">{item.title}</h4>
             <p>{item.content}</p>
             <p>{item.price}</p>
