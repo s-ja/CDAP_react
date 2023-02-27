@@ -117,7 +117,7 @@ function App() {
 
 function Product(props){
   return(
-    <Col sm key={props}>
+    <Col sm key={props.id}>
       {/* <img src={process.env.PUBLIC_URL + `/shoes${props.id+1}.jpg`} alt={`shoes${1+props.id}`} width='80%'/> */}
       <img src={process.env.PUBLIC_URL + `https://codingapple1.github.io/shop/shoes${props.id+1}.jpg`} alt={`shoes${1+props.id}`} width='80%'/>
       <h4>{props.title}</h4>
