@@ -1,6 +1,7 @@
 import { createElement } from 'react';
 import {Table} from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
+import { addCount } from '../store';
 import { changeName, plusAge } from './../store/userSlice';
 
 function Cart(){
@@ -23,9 +24,24 @@ function Cart(){
                 </tr>
             </thead>
             <tbody>
-                {state.inCart.map((content,index)=>
+
+                {/* {state.inCart.map((content,index)=>
                     <Product index={index} id={state.inCart[index].id} name={state.inCart[index].name} count={state.inCart[index].count} dispatch={dispatch}/>
-                )}
+                )} */}
+
+                {
+                    state.inCart.map((a, i)=>
+                    <tr key={i}>
+                        <td>{state.inCart[i].id}</td>
+                        <td>{state.inCart[i].name}</td>
+                        <td>{state.inCart[i].count}</td>
+                        <td>
+                        <button onClick={()=>{ dispatch(addCount(i)) }}>+</button>
+                        </td>
+                    </tr>
+                    )
+                }
+
             </tbody>
             </Table> 
         </div>
@@ -40,11 +56,11 @@ function Product(props){
             <td>{props.count}</td>
             <td>
                 <button onClick={()=>{
-                    props.dispatch(changeName())
+                    props.dispatch(addCount(props.id))
                     }}>
                     +
                 </button>
-                </td>
+            </td>
         </tr>
     )
 }

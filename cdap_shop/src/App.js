@@ -38,6 +38,7 @@ function App() {
             <Nav.Link onClick={()=>{navigate('/')}}>Home</Nav.Link>
             <Nav.Link onClick={()=>{navigate('/detail')}}>Detail</Nav.Link>
             <Nav.Link onClick={()=>{navigate('/about')}}>About</Nav.Link>
+            <Nav.Link onClick={()=>{navigate('/cart')}}>Cart</Nav.Link>
           </Nav>
           <Nav className="me-auto">
             <Nav.Link onClick={()=>{navigate(-1)}}>Backward</Nav.Link>
@@ -82,7 +83,7 @@ function App() {
         } />
         
         <Route path='/detail/:id' element={
-          <Context1.Provider value={{ stock}}>
+          <Context1.Provider value={{ stock }}>
             <Detail shoes={shoes} />
           </Context1.Provider>
 
