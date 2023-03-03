@@ -1,5 +1,5 @@
 // import 'bootstrap/dist/css/bootstrap.min.css';
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import { Button, Container, Nav, Navbar, Row, Col } from 'react-bootstrap';
 import './App.css';
 import bg from './img/bg.png';
@@ -22,6 +22,13 @@ function App() {
   let navigate = useNavigate();
 
   let [stock, setStock] = useState([10,11,100])
+
+  let [watched, setWatched] = useEffect(()=>{localStorage.setItem('watched', JSON.stringify( [] ))})
+
+  // let obj = {name : 'asj'};
+  // localStorage.setItem('data', JSON.stringify(obj))
+  // let out = localStorage.getItem('data')
+  // console.log(JSON.parse(out).name);
 
   return (
     <div className="App">
@@ -57,7 +64,7 @@ function App() {
               <Row>
                 {shoes.map(function(content,index){
                   return(
-                    <Product id={shoes[index].id} title={shoes[index].title} price={shoes[index].price} content={shoes[index].content}/>
+                    <Product id={shoes[index].id} title={shoes[index].title} price={shoes[index].price} content={shoes[index].content} onClick={()=>{setWatched()}}/>
                   )
                 })}
               </Row>
