@@ -44,6 +44,15 @@ function Detail(props){
   let dispatch = useDispatch()
 
   useEffect(()=>{
+    let out = localStorage.getItem('watched')
+    out = JSON.parse(out)
+    out.push(item.id)
+    out = new Set(out)
+    out = Array.from(out)
+    localStorage.setItem('watched', JSON.stringify(out))
+  },[]);
+
+  useEffect(()=>{
     let timer = setTimeout(()=>{setAlert(false)},2000)
     // console.log('test2');
     return ()=>{
@@ -68,7 +77,7 @@ function Detail(props){
     return ()=>{
       setFade2('')
     }
-  })
+  },[]);
 
   // let [disapear, setDisapear] = useState((x = 'block')=>{
   //     return(

@@ -23,7 +23,9 @@ function App() {
 
   let [stock, setStock] = useState([10,11,100])
 
-  let [watched, setWatched] = useEffect(()=>{localStorage.setItem('watched', JSON.stringify( [] ))})
+  useEffect(()=>{
+    localStorage.setItem('watched', JSON.stringify( [] ))
+  },[])
 
   // let obj = {name : 'asj'};
   // localStorage.setItem('data', JSON.stringify(obj))
@@ -64,7 +66,7 @@ function App() {
               <Row>
                 {shoes.map(function(content,index){
                   return(
-                    <Product id={shoes[index].id} title={shoes[index].title} price={shoes[index].price} content={shoes[index].content} onClick={()=>{setWatched()}}/>
+                    <Product id={shoes[index].id} title={shoes[index].title} price={shoes[index].price} content={shoes[index].content} key={index}/>
                   )
                 })}
               </Row>
@@ -125,7 +127,7 @@ function App() {
 
 function Product(props){
   return(
-    <Col sm key={props.id}>
+    <Col sm>
       {/* <img src={process.env.PUBLIC_URL + `/shoes${props.id+1}.jpg`} alt={`shoes${1+props.id}`} width='80%'/> */}
       <img src={process.env.PUBLIC_URL + `https://codingapple1.github.io/shop/shoes${props.id+1}.jpg`} alt={`shoes${1+props.id}`} width='80%'/>
       <h4>{props.title}</h4>
