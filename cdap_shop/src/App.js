@@ -14,6 +14,8 @@ import axios from 'axios'
 
 import Cart from './pages/Cart'
 
+import {useQuery} from '@tanstack/react-query'
+
 export let Context1 = createContext()
 
 function App() {
@@ -32,26 +34,35 @@ function App() {
   // let out = localStorage.getItem('data')
   // console.log(JSON.parse(out).name);
 
+  let result = useQuery(['name'],()=>
+    axios.get('https://codingapple1.github.io/userdata.json').then((a)=>{
+    return a.data
+    }),
+    // {staleTime : 2000}
+  )
+
+  // console.log(result.data, result.isLoading, result.error);
+  // console.log(result.isLoading ? '로딩중입니다.' : result.data.name);
+  
   return (
     <div className="App">
       {/* <Button variant="primary">Primary</Button> */}
 
-      <Navbar bg="dark" variant="dark">
+      <Navbar bg="light" variant="light">
         <Container>
-          <Navbar.Brand href="#home">CDAP <br/> React_Part 2</Navbar.Brand>
+          <Navbar.Brand href="#home">CDAP : React_Part 2</Navbar.Brand>
           <Nav className="me-auto">
-            {/* <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Features</Nav.Link> */}
-            {/* <Link to='/'>Home</Link> */}
-            {/* <Link to='detail' >Detail</Link> */}
             <Nav.Link onClick={()=>{navigate('/')}}>Home</Nav.Link>
-            <Nav.Link onClick={()=>{navigate('/detail')}}>Detail</Nav.Link>
-            <Nav.Link onClick={()=>{navigate('/about')}}>About</Nav.Link>
+            {/* <Nav.Link onClick={()=>{navigate('/detail')}}>Detail</Nav.Link> */}
+            {/* <Nav.Link onClick={()=>{navigate('/about')}}>About</Nav.Link> */}
             <Nav.Link onClick={()=>{navigate('/cart')}}>Cart</Nav.Link>
           </Nav>
-          <Nav className="me-auto">
-            <Nav.Link onClick={()=>{navigate(-1)}}>Backward</Nav.Link>
-            <Nav.Link onClick={()=>{navigate(+1)}}>Forward</Nav.Link>
+          <Nav className='ms-auto'>
+            안녕하세요,
+            {/* { result.isLoading ? '로딩중입니다.' : result.data.name } */}
+            { result.isLoading && '로딩중입니다.' }
+            { result.error && '에러입니다.' }
+            { result.data && result.data.name }
           </Nav>
         </Container>
       </Navbar>
